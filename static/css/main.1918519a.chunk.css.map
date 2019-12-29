@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,wBAAyB,CACzB,aAAc,CAEd,QAAS,CACT,SACF,CAEA,UALE,WAOF","file":"main.1918519a.chunk.css","sourcesContent":["body {\n  background-color: #202020;\n  color: #f0f0f0;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n}\n\nhtml {\n  height: 100%;\n}\n"]}
