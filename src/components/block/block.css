@@ -1,0 +1,22 @@
+.block {
+  background-color: #f0f0f0;
+  height: calc(1rem - 1px);
+  position: absolute;
+  width: calc(1rem - 1px);
+}
+
+.block__bottom-left {
+  border-bottom-left-radius: 0.25rem;
+}
+
+.block__bottom-right {
+  border-bottom-right-radius: 0.25rem;
+}
+
+.block__top-left {
+  border-top-left-radius: 0.25rem;
+}
+
+.block__top-right {
+  border-top-right-radius: 0.25rem;
+}
