@@ -1,0 +1,16 @@
+node_js: 11
+branches:
+  only: master
+cache: yarn
+install: yarn
+script: yarn build
+deploy:
+  github-token:
+    secure: ZgTz24P8cAN4fReCkTYemmg1EE0HIKU12yBh6nuBTf6QXUiyIQINA+1GvdRQVWToPNQ+ogySbY5LkXfbDanlwsZ7dFA8IRwIO/w8ROCc6suQ0v+OdfRR+sBr+OBrE7MlEo7SCa6uvenibYJ+TWodwrg/dzs8K7KjrggZsKCw5WKPNVpgA1g+niCbCeSZMDrgEwK8dTDTnbJ6zXancWymBDmiHEO6+dqg7NhFsyAiXeZWXSpZYvqD4WH9oYyEItlXVDgVyQeX/3fQA/HLg6VqAxPjSrS2jL/tKnI9Mfe/7fAhq+8+tQaPEKBAK+WE/Ch7JEt8piDgjw3VzQINNGqCIK4ojeLnvGg68wCkVoCVz1iQVToqonUw0047FQ0MachYX/YZmFzc1SRuRUNSZhjVGc4cWIZJxtFU7qlYS9fcWzEOSDykb38p+rdbCJ8EabcbqHzhj+WVPpHBSS3SrnSV0LtzKA6VHKBgEvXbEObZoSNyGjRlYB/P98FfHC7jZ6QGkz7jzA/OHFkpS9rqjQ+wxrNpLKLa0v4VEv6nLqHWCup0FabNR+9YW7n+ayOESzchdkZfrx00dVuRnvDLr+G9mdtsDAwZ4CdivIkXSDlpzk4eBeE7bNDEERfXDCfhiZf8dauwitNJhQEGBU4DNrMZ1XJyJ8rzZYgxCsQ6xXj1UoQ=
+  keep-history: true
+  local-dir: build
+  on:
+    branch: master
+  provider: pages
+  skip-cleanup: true
+  target-branch: gh-pages
