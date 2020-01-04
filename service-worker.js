@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/breakout-of-smoking/precache-manifest.ded69db2f03b26b76fdffe768d4832c7.js"
+  "/breakout-of-smoking/precache-manifest.9a420fc006840b108728714c1e71c787.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "96de3dd7f81689ab138963ea6007902d",
+    "revision": "6ed2a82a887117d1af66cfe484ea9a9d",
     "url": "/breakout-of-smoking/index.html"
   },
   {
-    "revision": "d6fd1f8e1da4be2fe24d",
-    "url": "/breakout-of-smoking/static/css/main.e8ed6dba.chunk.css"
+    "revision": "7b5448ea2fcacc2ceb50",
+    "url": "/breakout-of-smoking/static/css/main.f5a59c13.chunk.css"
   },
   {
     "revision": "b77849075034f4107379",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/breakout-of-smoking/static/js/2.ea031fea.chunk.js.LICENSE"
   },
   {
-    "revision": "d6fd1f8e1da4be2fe24d",
-    "url": "/breakout-of-smoking/static/js/main.57a200c5.chunk.js"
+    "revision": "7b5448ea2fcacc2ceb50",
+    "url": "/breakout-of-smoking/static/js/main.fec81872.chunk.js"
   },
   {
     "revision": "d4ae1e59736de41f4306",
