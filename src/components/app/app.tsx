@@ -1,5 +1,5 @@
 import React, { ReactElement, CSSProperties } from 'react';
-import { Cigarette, Lungs } from '..';
+import { Cigarette, Lungs, Smoke } from '..';
 import './app.css';
 import { usePaddleWidth, useStyle } from './hooks';
 import { DEFAULT_GRID, getScreenWidth } from './utils';
@@ -12,6 +12,8 @@ export default function App(): ReactElement {
   const [grid] = React.useState<boolean[][]>(DEFAULT_GRID);
   const [keysDown, setKeysDown] = React.useState<number[]>([]);
   const [screenWidth, setScreenWidth] = React.useState<number>(getScreenWidth);
+  const [smokeLeft] = React.useState<number>(0);
+  const [smokeTop] = React.useState<number>(0);
 
   const paddleWidth: number = usePaddleWidth(grid);
   const style: CSSProperties = useStyle(screenWidth);
@@ -136,6 +138,7 @@ export default function App(): ReactElement {
     <div className="app" style={style}>
       <Lungs grid={grid} />
       <Cigarette left={paddleLeft} width={paddleWidth} />
+      <Smoke left={smokeLeft} top={smokeTop} />
     </div>
   );
 }
