@@ -1,4 +1,5 @@
-import React, { ReactElement, CSSProperties } from 'react';
+import React, { ReactElement, CSSProperties, MutableRefObject } from 'react';
+import { useWindowEventListener } from '../../hooks';
 import { Cigarette, Lungs, Smoke } from '..';
 import './app.css';
 import { usePaddleWidth, useStyle } from './hooks';
@@ -9,6 +10,9 @@ const ARROW_RIGHT_KEY_CODE = 39;
 const MIN_PADDLE_LEFT = 0;
 
 export default function App(): ReactElement {
+  const gridRef: MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+  const paddleRef: MutableRefObject<HTMLDivElement | null> = React.useRef(null);
+
   const [grid] = React.useState<boolean[][]>(DEFAULT_GRID);
   const [keysDown, setKeysDown] = React.useState<number[]>([]);
   const [screenWidth, setScreenWidth] = React.useState<number>(getScreenWidth);
@@ -17,6 +21,26 @@ export default function App(): ReactElement {
 
   const paddleWidth: number = usePaddleWidth(grid);
   const style: CSSProperties = useStyle(screenWidth);
+
+  const gridTop: number = React.useMemo((): number => {
+    if (!gridRef.current) {
+      // The value here is irrelevant. The grid's position changes based on the
+      //   screenWidth due to CSS, not JavaScript. Using screenWidth here avoids
+      //   the linting error.
+      return screenWidth;
+    }
+    return gridRef.current.getBoundingClientRect().top;
+  }, [gridRef, screenWidth]);
+
+  const paddleTop: number = React.useMemo((): number => {
+    if (!paddleRef.current) {
+      // The value here is irrelevant. The grid's position changes based on the
+      //   screenWidth due to CSS, not JavaScript. Using screenWidth here avoids
+      //   the linting error.
+      return screenWidth;
+    }
+    return paddleRef.current.getBoundingClientRect().top;
+  }, [paddleRef, screenWidth]);
 
   /*
   const handleCollision = React.useCallback((x: number, y: number): void => {
@@ -89,19 +113,9 @@ export default function App(): ReactElement {
     }
   }, [screenWidth]);
 
-  React.useEffect((): (() => void) => {
-    window.addEventListener('keydown', handleWindowKeyDown);
-    return (): void => {
-      window.removeEventListener('keydown', handleWindowKeyDown);
-    };
-  }, [handleWindowKeyDown]);
-
-  React.useEffect((): (() => void) => {
-    window.addEventListener('keyup', handleWindowKeyUp);
-    return (): void => {
-      window.removeEventListener('keyup', handleWindowKeyUp);
-    };
-  }, [handleWindowKeyUp]);
+  useWindowEventListener('keydown', handleWindowKeyDown);
+  useWindowEventListener('keyup', handleWindowKeyUp);
+  useWindowEventListener('resize', handleWindowResize);
 
   const [paddleLeft, setPaddleLeft] = React.useState<number>(
     (): number => Math.round(screenWidth - paddleWidth) / 2,
@@ -127,17 +141,10 @@ export default function App(): ReactElement {
     }
   }, [keysDown, paddleWidth, screenWidth]);
 
-  React.useEffect((): (() => void) => {
-    window.addEventListener('resize', handleWindowResize);
-    return (): void => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, [handleWindowResize]);
-
   return (
     <div className="app" style={style}>
-      <Lungs grid={grid} />
-      <Cigarette left={paddleLeft} width={paddleWidth} />
+      <Lungs grid={grid} gridRef={gridRef} />
+      <Cigarette left={paddleLeft} paddleRef={paddleRef} width={paddleWidth} />
       <Smoke left={smokeLeft} top={smokeTop} />
     </div>
   );

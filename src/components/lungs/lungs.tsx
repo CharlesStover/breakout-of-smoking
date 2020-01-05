@@ -1,14 +1,15 @@
-import React, { ReactElement } from 'react';
+import React, { MutableRefObject, ReactElement } from 'react';
 import { Block } from '..';
 import './lungs.css';
 
 interface Props {
   grid: boolean[][];
+  gridRef: MutableRefObject<HTMLDivElement | null>;
 }
 
-export default function Lungs({ grid }: Props): ReactElement {
+export default function Lungs({ grid, gridRef }: Props): ReactElement {
   return (
-    <div className="lungs">
+    <div className="lungs" ref={gridRef}>
       {grid.map(
         (row: boolean[], y: number): ReactElement => (
           <div className="lungs__row" key={y}>
