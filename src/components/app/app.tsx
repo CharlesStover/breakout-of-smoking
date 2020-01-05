@@ -2,7 +2,7 @@ import React, { ReactElement, CSSProperties, MutableRefObject } from 'react';
 import { useWindowEventListener } from '../../hooks';
 import { Cigarette, Lungs, Smoke } from '..';
 import './app.css';
-import { usePaddleWidth, useStyle } from './hooks';
+import { useCollision, usePaddleWidth, useStyle } from './hooks';
 import { DEFAULT_GRID, getScreenWidth } from './utils';
 
 const ARROW_LEFT_KEY_CODE = 37;
@@ -13,11 +13,12 @@ export default function App(): ReactElement {
   const gridRef: MutableRefObject<HTMLDivElement | null> = React.useRef(null);
   const paddleRef: MutableRefObject<HTMLDivElement | null> = React.useRef(null);
 
-  const [grid] = React.useState<boolean[][]>(DEFAULT_GRID);
+  const [grid, setGrid] = React.useState<boolean[][]>(DEFAULT_GRID);
   const [keysDown, setKeysDown] = React.useState<number[]>([]);
   const [screenWidth, setScreenWidth] = React.useState<number>(getScreenWidth);
-  const [smokeLeft] = React.useState<number>(0);
-  const [smokeTop] = React.useState<number>(0);
+  const [smokeAngle, setSmokeAngle] = React.useState<number>(Math.PI / 4);
+  const [smokeLeft, setSmokeLeft] = React.useState<number>(0);
+  const [smokeTop, setSmokeTop] = React.useState<number>(0);
 
   const paddleWidth: number = usePaddleWidth(grid);
   const style: CSSProperties = useStyle(screenWidth);
@@ -41,16 +42,6 @@ export default function App(): ReactElement {
     }
     return paddleRef.current.getBoundingClientRect().top;
   }, [paddleRef, screenWidth]);
-
-  /*
-  const handleCollision = React.useCallback((x: number, y: number): void => {
-    setGrid(grid => [
-      ...grid.slice(0, y - 1),
-      [...grid[y].slice(0, x - 1), false, ...grid[y].slice(x, grid[y].length)],
-      ...grid.slice(y, grid.length),
-    ]);
-  }, []);
-  */
 
   const handleWindowKeyDown = React.useCallback(
     (e: KeyboardEvent): void => {
@@ -140,6 +131,21 @@ export default function App(): ReactElement {
       };
     }
   }, [keysDown, paddleWidth, screenWidth]);
+
+  useCollision({
+    grid,
+    gridTop,
+    paddleLeft,
+    paddleTop,
+    paddleWidth,
+    setGrid,
+    setSmokeAngle,
+    setSmokeLeft,
+    setSmokeTop,
+    smokeAngle,
+    smokeLeft,
+    smokeTop,
+  });
 
   return (
     <div className="app" style={style}>
